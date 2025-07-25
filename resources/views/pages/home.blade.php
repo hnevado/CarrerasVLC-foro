@@ -53,12 +53,12 @@
 
                             {{-- Action buttons --}}
                             <div class="flex items-center space-x-2">
-                                <button class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
-                                    💬 Responder
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
+                                <a href="{{ route('questions.show', $question) }}" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
+                                        💬 Leer más
+                                </a>
+                                <a href="#" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
                                     👍 Like
-                                </button>
+                                </a>
                             </div>
                         </div>
 
