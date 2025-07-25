@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $questions = Question::with('category','user')->latest()->get();
+        $questions = Question::with('category','user')->latest()->get()->take(10);
         
         return view('pages.home', [
             'questions' => $questions,
