@@ -32,18 +32,14 @@
                         <div class="flex items-center justify-between pt-4 border-t border-slate-100">
                             <div class="flex items-center space-x-3">
                                 {{-- User Avatar Placeholder --}}
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-semibold text-sm shadow-sm">
+                                <x-avatar>
                                     {{ strtoupper(substr($question->user->name, 0, 2)) }}
-                                </div>
+                                </x-avatar>
                                 
                                 <div>
-                                    <p class="font-medium text-slate-800 text-sm">
-                                        {{ $question->user->name }}
-                                    </p>
-                                    <p class="text-xs text-slate-500">
-                                        {{ $question->created_at ? $question->created_at->diffForHumans() : 'Hace un momento' }}
-                                    </p>
+                                    <x-detail :item="$question" />
                                 </div>
+
                             </div>
 
                             
@@ -75,15 +71,14 @@
             <div class="mb-8 pl-4 border-l-2 border-slate-200">
                     <div class="flex items-start gap-3">
                         <div class="flex-shrink-0">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-red-600 flex items-center justify-center text-white font-semibold text-xs shadow-sm">
-                            {{ strtoupper(substr($comment->user->name, 0, 2)) }}
-                            </div>
+                            <x-avatar>
+                                {{ strtoupper(substr($comment->user->name, 0, 2)) }}
+                            </x-avatar>
                         </div>
                     <div class="flex-1">
                             <p class="text-slate-700 leading-relaxed mb-1">{{ $comment->content }}</p>
                             <div class="flex items-center gap-2">
-                             <h3 class="text-xs font-semibold text-slate-800">por {{ $comment->user->name }}</h3>
-                             <span class="text-xs text-slate-500">· {{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Hace un momento' }}</span>      
+                             <x-detail :item="$comment" />     
                             </div>
                         </div>
                     </div>
@@ -99,14 +94,13 @@
         <article class="group relative rounded-xl bg-white border border-blue-100 shadow hover:shadow-lg transition-all duration-300 p-6">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-base shadow">
-                {{ strtoupper(substr($answer->user->name, 0, 2)) }}
-              </div>
+                 <x-avatar>
+                     {{ strtoupper(substr($answer->user->name, 0, 2)) }}
+                 </x-avatar>
             </div>
             <div class="flex-1">
               <div class="flex items-center justify-between mb-2">
-                <h4 class="font-semibold text-blue-700 text-base">{{ $answer->user->name }}</h4>
-                <span class="text-xs text-slate-500">{{ $answer->created_at ? $answer->created_at->diffForHumans() : 'Hace un momento' }}</span>
+                <x-detail :item="$answer" />
               </div>
               <p class="text-slate-700 leading-relaxed mb-3">{{ $answer->content }}</p>
             </div>
@@ -119,14 +113,14 @@
                         <div class="mb-8 pl-4 border-l-2 border-slate-200">
                                 <div class="flex items-start gap-3">
                                 <div class="flex-shrink-0">
-                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-red-600 flex items-center justify-center text-white font-semibold text-xs shadow-sm">
-                                    {{ strtoupper(substr($comment->user->name, 0, 2)) }}
-                                    </div>
+                                    <x-avatar>
+                                        {{ strtoupper(substr($comment->user->name, 0, 2)) }}
+                                    </x-avatar>
                                 </div>
                          <div class="flex-1">
                                     <p class="text-slate-700 leading-relaxed mb-1">{{ $comment->content }}</p>
                                     <div class="flex items-center gap-2">
-                                    <h3 class="text-xs font-semibold text-slate-800">por {{ $comment->user->name }}</h3>
+                                    <p class="font-medium text-slate-800 text-sm">por {{ $comment->user->name }}</p>
                                     <span class="text-xs text-slate-500">· {{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Hace un momento' }}</span>      
                                     </div>
                                 </div>
