@@ -18,7 +18,7 @@
                                 </div>
                                 
                                 <h2 class="text-xl md:text-2xl font-bold text-slate-800 mb-3 line-clamp-2 group-hover:text-slate-900 transition-colors duration-200">
-                                    {{ $question->title }}
+                                    <a href="{{ route('questions.show', $question) }}">{{ $question->title }}</a>
                                 </h2>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <div class="flex items-center space-x-2">
                                   @if ($home) 
                                     <a href="{{ route('questions.show', $question) }}" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
-                                            💬 Leer más
+                                            💬 {{ count($question->answers) }} respuestas
                                     </a>
                                    @endif
                                     <a href="#" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
@@ -68,6 +68,7 @@
                     </div>
 </article>
 
+@if (!$home) 
 <ul class="space-y-4 mt-2">
   @foreach ($question->answers as $answer)
     <li>
@@ -90,3 +91,10 @@
     </li>
   @endforeach
 </ul>
+
+<div class="mt-4">
+  <a href="{{ route('home') }}" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
+    &lt; Volver
+  </a>
+</div>
+@endif
