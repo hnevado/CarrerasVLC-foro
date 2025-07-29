@@ -46,17 +46,19 @@
                                 </div>
                             </div>
 
-                            @if ($home)
+                            
                             {{-- Action buttons --}}
                                 <div class="flex items-center space-x-2">
+                                  @if ($home) 
                                     <a href="{{ route('questions.show', $question) }}" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
                                             💬 Leer más
                                     </a>
+                                   @endif
                                     <a href="#" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
-                                        👍 Like
+                                        <span class="text-3xl">&hearts;</span>
                                     </a>
                                 </div>
-                            @endif
+                           
 
                         </div>
 
@@ -65,3 +67,26 @@
                              style="background-color: {{ $question->category->color }}"></div>
                     </div>
 </article>
+
+<ul class="space-y-4 mt-2">
+  @foreach ($question->answers as $answer)
+    <li>
+      <article class="relative overflow-hidden rounded-lg bg-slate-50 border-l-4 border-blue-400 p-4 shadow-sm">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-semibold text-sm shadow-sm">
+              {{ strtoupper(substr($answer->user->name, 0, 2)) }}
+            </div>
+          </div>
+          <div class="flex-1">
+            <p class="text-slate-700 leading-relaxed mb-2">{{ $answer->content }}</p>
+            <div class="flex items-center gap-2">
+              <h3 class="text-xs font-semibold text-slate-800">por {{ $answer->user->name }}</h3>
+              <span class="text-xs text-slate-500">· {{ $answer->created_at ? $answer->created_at->diffForHumans() : 'Hace un momento' }}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </li>
+  @endforeach
+</ul>
