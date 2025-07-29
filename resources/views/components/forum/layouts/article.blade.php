@@ -66,35 +66,82 @@
                         <div class="absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
                              style="background-color: {{ $question->category->color }}"></div>
                     </div>
-</article>
+    </article>
 
-@if (!$home) 
-<ul class="space-y-4 mt-2">
-  @foreach ($question->answers as $answer)
-    <li>
-      <article class="relative overflow-hidden rounded-lg bg-slate-50 border-l-4 border-blue-400 p-4 shadow-sm">
-        <div class="flex items-start gap-3">
-          <div class="flex-shrink-0">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-semibold text-sm shadow-sm">
-              {{ strtoupper(substr($answer->user->name, 0, 2)) }}
+    @if (!$home)
+    <div class="m-4 mt-0 mb-0">
+    {{-- Comentarios--}}
+        @foreach ($question->comments as $comment)
+            <div class="mb-8 pl-4 border-l-2 border-slate-200">
+                    <div class="flex items-start gap-3">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-red-600 flex items-center justify-center text-white font-semibold text-xs shadow-sm">
+                            {{ strtoupper(substr($comment->user->name, 0, 2)) }}
+                            </div>
+                        </div>
+                    <div class="flex-1">
+                            <p class="text-slate-700 leading-relaxed mb-1">{{ $comment->content }}</p>
+                            <div class="flex items-center gap-2">
+                             <h3 class="text-xs font-semibold text-slate-800">por {{ $comment->user->name }}</h3>
+                             <span class="text-xs text-slate-500">· {{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Hace un momento' }}</span>      
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        @endforeach
+    </div>
+    @endif
+
+ @if (!$home)   
+  <section>
+    <div class="space-y-6">
+      @foreach ($question->answers as $answer)
+        <article class="group relative rounded-xl bg-white border border-blue-100 shadow hover:shadow-lg transition-all duration-300 p-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-base shadow">
+                {{ strtoupper(substr($answer->user->name, 0, 2)) }}
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-semibold text-blue-700 text-base">{{ $answer->user->name }}</h4>
+                <span class="text-xs text-slate-500">{{ $answer->created_at ? $answer->created_at->diffForHumans() : 'Hace un momento' }}</span>
+              </div>
+              <p class="text-slate-700 leading-relaxed mb-3">{{ $answer->content }}</p>
             </div>
           </div>
-          <div class="flex-1">
-            <p class="text-slate-700 leading-relaxed mb-2">{{ $answer->content }}</p>
-            <div class="flex items-center gap-2">
-              <h3 class="text-xs font-semibold text-slate-800">por {{ $answer->user->name }}</h3>
-              <span class="text-xs text-slate-500">· {{ $answer->created_at ? $answer->created_at->diffForHumans() : 'Hace un momento' }}</span>
-            </div>
-          </div>
-        </div>
-      </article>
-    </li>
-  @endforeach
-</ul>
+        </article>
+        
+         @if ($answer->comments->count())
+             <div class="m-4 mt-0">
+                  @foreach ($answer->comments as $comment)
+                        <div class="mb-8 pl-4 border-l-2 border-slate-200">
+                                <div class="flex items-start gap-3">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-red-600 flex items-center justify-center text-white font-semibold text-xs shadow-sm">
+                                    {{ strtoupper(substr($comment->user->name, 0, 2)) }}
+                                    </div>
+                                </div>
+                         <div class="flex-1">
+                                    <p class="text-slate-700 leading-relaxed mb-1">{{ $comment->content }}</p>
+                                    <div class="flex items-center gap-2">
+                                    <h3 class="text-xs font-semibold text-slate-800">por {{ $comment->user->name }}</h3>
+                                    <span class="text-xs text-slate-500">· {{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Hace un momento' }}</span>      
+                                    </div>
+                                </div>
+                         </div>
+                        </div>
+                    @endforeach
+                </div>
+          @endif
+      @endforeach
+    </div>
+  </section>
 
-<div class="mt-4">
-  <a href="{{ route('home') }}" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
-    &lt; Volver
-  </a>
-</div>
+  <div class="mt-4">
+    <a href="{{ route('home') }}" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors duration-200">
+        &lt; Volver
+    </a>
+  </div>
 @endif
